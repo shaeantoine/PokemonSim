@@ -1,0 +1,53 @@
+class Pokemon:
+  def __init__(self, name, attack_points, health = 100):
+    self.name = name
+    self.attack_points = attack_points
+    self.health = health
+
+  def attack(self, other_pokemon):
+    other_pokemon.health -= self.attack_points
+    print("{name} attacked {other_pokemon} for {attack} attack points".format(name = self.name, other_pokemon = other_pokemon.name, attack = str(self.attack_points)))
+
+  def heal(self, healing_potion):
+    self.health += healing_potion
+    print("{name} gained {points} in health, {name} currently has {health} health points".format(name = self.name, points = healing_potion, health = self.health))
+
+  def change_name(self, new_name):
+    print("{old_name} has the new name of {new_name}".format(old_name = self.name, new_name = new_name))
+    self.name = new_name
+
+
+  def __repr__(self):
+    description = "Hello, my name is {name}, I have {attack} attack points and my health is {health}".format(name = self.name, attack = self.attack_points, health = self.health)
+    return description
+
+
+class Trainer:
+  def __init__(self, name, skill, pokemon_ls = []):
+    self.skill = skill
+    self.pokemon_ls = pokemon_ls
+    self.name = name
+
+  def add_pokemon(self, pokemon):
+    if pokemon.health < 50:
+      self.pokemon_ls.append(pokemon)
+      print("{poke_name} has {poke_health} health points, therefore he has now been collected by {trainer_name}".format(poke_name = pokemon.name, poke_health = pokemon.health, trainer_name = self.name))
+
+  def increase_skill(self):
+    self.skill += 10
+    print("{trainer_name}'s skill has increased by 10 points, their new skill level is {skill}".format(trainer_name = self.name, skill = self.skill))
+
+  def heal_pokemon(self, pokemon):
+    if pokemon in self.pokemon_ls:
+      pokemon.health += 10
+      print("{poke_name} has increased its health level by 10 points".format(poke_name = pokemon.name))
+
+  def __repr__(self):
+    description = "Hello, my name is {name}, I have a skill level of {skill} and I have {num_poke} pokemons".format(name = self.name, skill = self.skill, num_poke = str(sum(self.pokemon_ls)))
+    return description
+
+pokemon_one = Pokemon("pikachu", 15)
+pokemon_two = Pokemon("charzard", 20, 49)
+
+trainer_one = Trainer("velociraptor", 100)
+trainer_two = Trainer("T_rex", 50)
